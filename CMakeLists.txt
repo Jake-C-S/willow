@@ -1,16 +1,11 @@
-# The following lines of boilerplate have to be in your project's
-# CMakeLists in this exact order for cmake to work correctly
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.16)
+project(mayhem-cmake-example)
 
-set(COMPONENTS main)
+add_executable(fuzzme fuzzme.c)
 
-if(DEFINED ENV{WILLOW_VERSION})
-	add_definitions(-DWILLOW_USER_AGENT="Willow/$ENV{WILLOW_VERSION}")
-else()
-	add_definitions(-DWILLOW_USER_AGENT="Willow/0.1")
-endif()
-
-include($ENV{ADF_PATH}/CMakeLists.txt)
-include($ENV{IDF_PATH}/tools/cmake/project.cmake)
-
-project(willow)
+## Uncomment these lines after converting fuzzme.c into a libFuzzer target
+#if (NOT CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+#    message(FATAL_ERROR "Clang is required for libFuzzer!")
+#endif()
+#target_compile_options(fuzzme PUBLIC -fsanitize=fuzzer)
+#target_link_options(fuzzme PUBLIC -fsanitize=fuzzer)

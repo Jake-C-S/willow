@@ -1,0 +1,5 @@
+project: willow
+target: fuzzme
+
+cmds:
+  - cmd: /fuzzme @@
